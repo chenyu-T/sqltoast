@@ -1,0 +1,929 @@
+# unsigned literal number value expression primary
+>SELECT 1 FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: UNSIGNED_VALUE_SPECIFICATION
+                        unsigned_value_specification: literal[1]
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# Simple addition of literal number to column reference
+>UPDATE t1 SET x = 1 WHERE a = (2 + b)
+statements:
+  - type: UPDATE
+    update_statement:
+      table_name: t1
+      set_columns:
+        x: literal[1]
+      where:
+        terms:
+          - factor:
+              predicate:
+                type: COMPARISON
+                comparison_predicate:
+                  op: EQUAL
+                  left:
+                    type: ELEMENT
+                    element:
+                      type: VALUE_EXPRESSION
+                      value_expression:
+                        type: NUMERIC_EXPRESSION
+                        numeric_expression:
+                          left:
+                            left:
+                              primary:
+                                type: VALUE
+                                value:
+                                  primary:
+                                    type: COLUMN_REFERENCE
+                                    column_reference: a
+                  right:
+                    type: ELEMENT
+                    element:
+                      type: VALUE_EXPRESSION
+                      value_expression:
+                        type: NUMERIC_EXPRESSION
+                        numeric_expression:
+                          left:
+                            left:
+                              primary:
+                                type: VALUE
+                                value:
+                                  primary:
+                                    type: PARENTHESIZED_VALUE_EXPRESSION
+                                    parenthesized_value_expression:
+                                      value:
+                                        type: NUMERIC_EXPRESSION
+                                        numeric_expression:
+                                          left:
+                                            left:
+                                              primary:
+                                                type: VALUE
+                                                value:
+                                                  primary:
+                                                    type: UNSIGNED_VALUE_SPECIFICATION
+                                                    unsigned_value_specification: literal[2]
+                                          op: ADD
+                                          right:
+                                            left:
+                                              primary:
+                                                type: VALUE
+                                                value:
+                                                  primary:
+                                                    type: COLUMN_REFERENCE
+                                                    column_reference: b
+# Simple subtraction of literal number from column reference
+>UPDATE t1 SET x = 1 WHERE a = (b - 2)
+statements:
+  - type: UPDATE
+    update_statement:
+      table_name: t1
+      set_columns:
+        x: literal[1]
+      where:
+        terms:
+          - factor:
+              predicate:
+                type: COMPARISON
+                comparison_predicate:
+                  op: EQUAL
+                  left:
+                    type: ELEMENT
+                    element:
+                      type: VALUE_EXPRESSION
+                      value_expression:
+                        type: NUMERIC_EXPRESSION
+                        numeric_expression:
+                          left:
+                            left:
+                              primary:
+                                type: VALUE
+                                value:
+                                  primary:
+                                    type: COLUMN_REFERENCE
+                                    column_reference: a
+                  right:
+                    type: ELEMENT
+                    element:
+                      type: VALUE_EXPRESSION
+                      value_expression:
+                        type: NUMERIC_EXPRESSION
+                        numeric_expression:
+                          left:
+                            left:
+                              primary:
+                                type: VALUE
+                                value:
+                                  primary:
+                                    type: PARENTHESIZED_VALUE_EXPRESSION
+                                    parenthesized_value_expression:
+                                      value:
+                                        type: NUMERIC_EXPRESSION
+                                        numeric_expression:
+                                          left:
+                                            left:
+                                              primary:
+                                                type: VALUE
+                                                value:
+                                                  primary:
+                                                    type: COLUMN_REFERENCE
+                                                    column_reference: b
+                                          op: SUBTRACT
+                                          right:
+                                            left:
+                                              primary:
+                                                type: VALUE
+                                                value:
+                                                  primary:
+                                                    type: UNSIGNED_VALUE_SPECIFICATION
+                                                    unsigned_value_specification: literal[2]
+# Simple multiplication of two literals
+>UPDATE t1 SET x = 1 WHERE a = (2 * 1)
+statements:
+  - type: UPDATE
+    update_statement:
+      table_name: t1
+      set_columns:
+        x: literal[1]
+      where:
+        terms:
+          - factor:
+              predicate:
+                type: COMPARISON
+                comparison_predicate:
+                  op: EQUAL
+                  left:
+                    type: ELEMENT
+                    element:
+                      type: VALUE_EXPRESSION
+                      value_expression:
+                        type: NUMERIC_EXPRESSION
+                        numeric_expression:
+                          left:
+                            left:
+                              primary:
+                                type: VALUE
+                                value:
+                                  primary:
+                                    type: COLUMN_REFERENCE
+                                    column_reference: a
+                  right:
+                    type: ELEMENT
+                    element:
+                      type: VALUE_EXPRESSION
+                      value_expression:
+                        type: NUMERIC_EXPRESSION
+                        numeric_expression:
+                          left:
+                            left:
+                              primary:
+                                type: VALUE
+                                value:
+                                  primary:
+                                    type: PARENTHESIZED_VALUE_EXPRESSION
+                                    parenthesized_value_expression:
+                                      value:
+                                        type: NUMERIC_EXPRESSION
+                                        numeric_expression:
+                                          left:
+                                            left:
+                                              primary:
+                                                type: VALUE
+                                                value:
+                                                  primary:
+                                                    type: UNSIGNED_VALUE_SPECIFICATION
+                                                    unsigned_value_specification: literal[2]
+                                            op: MULTIPLY
+                                            right:
+                                              primary:
+                                                type: VALUE
+                                                value:
+                                                  primary:
+                                                    type: UNSIGNED_VALUE_SPECIFICATION
+                                                    unsigned_value_specification: literal[1]
+# Simple division of two literals
+>UPDATE t1 SET x = 1 WHERE a = (1 / 2)
+statements:
+  - type: UPDATE
+    update_statement:
+      table_name: t1
+      set_columns:
+        x: literal[1]
+      where:
+        terms:
+          - factor:
+              predicate:
+                type: COMPARISON
+                comparison_predicate:
+                  op: EQUAL
+                  left:
+                    type: ELEMENT
+                    element:
+                      type: VALUE_EXPRESSION
+                      value_expression:
+                        type: NUMERIC_EXPRESSION
+                        numeric_expression:
+                          left:
+                            left:
+                              primary:
+                                type: VALUE
+                                value:
+                                  primary:
+                                    type: COLUMN_REFERENCE
+                                    column_reference: a
+                  right:
+                    type: ELEMENT
+                    element:
+                      type: VALUE_EXPRESSION
+                      value_expression:
+                        type: NUMERIC_EXPRESSION
+                        numeric_expression:
+                          left:
+                            left:
+                              primary:
+                                type: VALUE
+                                value:
+                                  primary:
+                                    type: PARENTHESIZED_VALUE_EXPRESSION
+                                    parenthesized_value_expression:
+                                      value:
+                                        type: NUMERIC_EXPRESSION
+                                        numeric_expression:
+                                          left:
+                                            left:
+                                              primary:
+                                                type: VALUE
+                                                value:
+                                                  primary:
+                                                    type: UNSIGNED_VALUE_SPECIFICATION
+                                                    unsigned_value_specification: literal[1]
+                                            op: DIVIDE
+                                            right:
+                                              primary:
+                                                type: VALUE
+                                                value:
+                                                  primary:
+                                                    type: UNSIGNED_VALUE_SPECIFICATION
+                                                    unsigned_value_specification: literal[2]
+# Addition of numeric expression to a literal
+>UPDATE t1 SET x = 1 WHERE a = (1 + (2 * 1))
+statements:
+  - type: UPDATE
+    update_statement:
+      table_name: t1
+      set_columns:
+        x: literal[1]
+      where:
+        terms:
+          - factor:
+              predicate:
+                type: COMPARISON
+                comparison_predicate:
+                  op: EQUAL
+                  left:
+                    type: ELEMENT
+                    element:
+                      type: VALUE_EXPRESSION
+                      value_expression:
+                        type: NUMERIC_EXPRESSION
+                        numeric_expression:
+                          left:
+                            left:
+                              primary:
+                                type: VALUE
+                                value:
+                                  primary:
+                                    type: COLUMN_REFERENCE
+                                    column_reference: a
+                  right:
+                    type: ELEMENT
+                    element:
+                      type: VALUE_EXPRESSION
+                      value_expression:
+                        type: NUMERIC_EXPRESSION
+                        numeric_expression:
+                          left:
+                            left:
+                              primary:
+                                type: VALUE
+                                value:
+                                  primary:
+                                    type: PARENTHESIZED_VALUE_EXPRESSION
+                                    parenthesized_value_expression:
+                                      value:
+                                        type: NUMERIC_EXPRESSION
+                                        numeric_expression:
+                                          left:
+                                            left:
+                                              primary:
+                                                type: VALUE
+                                                value:
+                                                  primary:
+                                                    type: UNSIGNED_VALUE_SPECIFICATION
+                                                    unsigned_value_specification: literal[1]
+                                          op: ADD
+                                          right:
+                                            left:
+                                              primary:
+                                                type: VALUE
+                                                value:
+                                                  primary:
+                                                    type: PARENTHESIZED_VALUE_EXPRESSION
+                                                    parenthesized_value_expression:
+                                                      value:
+                                                        type: NUMERIC_EXPRESSION
+                                                        numeric_expression:
+                                                          left:
+                                                            left:
+                                                              primary:
+                                                                type: VALUE
+                                                                value:
+                                                                  primary:
+                                                                    type: UNSIGNED_VALUE_SPECIFICATION
+                                                                    unsigned_value_specification: literal[2]
+                                                            op: MULTIPLY
+                                                            right:
+                                                              primary:
+                                                                type: VALUE
+                                                                value:
+                                                                  primary:
+                                                                    type: UNSIGNED_VALUE_SPECIFICATION
+                                                                    unsigned_value_specification: literal[1]
+# General value expression primaries
+>SELECT USER, CURRENT_USER, SESSION_USER, SYSTEM_USER, VALUE FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: UNSIGNED_VALUE_SPECIFICATION
+                        unsigned_value_specification: USER
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: UNSIGNED_VALUE_SPECIFICATION
+                        unsigned_value_specification: CURRENT_USER
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: UNSIGNED_VALUE_SPECIFICATION
+                        unsigned_value_specification: SESSION_USER
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: UNSIGNED_VALUE_SPECIFICATION
+                        unsigned_value_specification: SYSTEM_USER
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: UNSIGNED_VALUE_SPECIFICATION
+                        unsigned_value_specification: VALUE
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# COUNT set function specifications
+>SELECT COUNT(*), COUNT(DISTINCT a), COUNT(a) FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: SET_FUNCTION_SPECIFICATION
+                        set_function_specification:
+                          type: COUNT
+                          star: true
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: SET_FUNCTION_SPECIFICATION
+                        set_function_specification:
+                          type: COUNT
+                          distinct: true
+                          value:
+                            type: NUMERIC_EXPRESSION
+                            numeric_expression:
+                              left:
+                                left:
+                                  primary:
+                                    type: VALUE
+                                    value:
+                                      primary:
+                                        type: COLUMN_REFERENCE
+                                        column_reference: a
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: SET_FUNCTION_SPECIFICATION
+                        set_function_specification:
+                          type: COUNT
+                          value:
+                            type: NUMERIC_EXPRESSION
+                            numeric_expression:
+                              left:
+                                left:
+                                  primary:
+                                    type: VALUE
+                                    value:
+                                      primary:
+                                        type: COLUMN_REFERENCE
+                                        column_reference: a
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# SUM set function specifications
+>SELECT SUM(DISTINCT a), SUM(a) FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: SET_FUNCTION_SPECIFICATION
+                        set_function_specification:
+                          type: SUM
+                          distinct: true
+                          value:
+                            type: NUMERIC_EXPRESSION
+                            numeric_expression:
+                              left:
+                                left:
+                                  primary:
+                                    type: VALUE
+                                    value:
+                                      primary:
+                                        type: COLUMN_REFERENCE
+                                        column_reference: a
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: SET_FUNCTION_SPECIFICATION
+                        set_function_specification:
+                          type: SUM
+                          value:
+                            type: NUMERIC_EXPRESSION
+                            numeric_expression:
+                              left:
+                                left:
+                                  primary:
+                                    type: VALUE
+                                    value:
+                                      primary:
+                                        type: COLUMN_REFERENCE
+                                        column_reference: a
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# AVG set function specifications
+>SELECT AVG(DISTINCT a), AVG(a) FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: SET_FUNCTION_SPECIFICATION
+                        set_function_specification:
+                          type: AVG
+                          distinct: true
+                          value:
+                            type: NUMERIC_EXPRESSION
+                            numeric_expression:
+                              left:
+                                left:
+                                  primary:
+                                    type: VALUE
+                                    value:
+                                      primary:
+                                        type: COLUMN_REFERENCE
+                                        column_reference: a
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: SET_FUNCTION_SPECIFICATION
+                        set_function_specification:
+                          type: AVG
+                          value:
+                            type: NUMERIC_EXPRESSION
+                            numeric_expression:
+                              left:
+                                left:
+                                  primary:
+                                    type: VALUE
+                                    value:
+                                      primary:
+                                        type: COLUMN_REFERENCE
+                                        column_reference: a
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# MIN set function specifications
+>SELECT MIN(DISTINCT a), MIN(a) FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: SET_FUNCTION_SPECIFICATION
+                        set_function_specification:
+                          type: MIN
+                          distinct: true
+                          value:
+                            type: NUMERIC_EXPRESSION
+                            numeric_expression:
+                              left:
+                                left:
+                                  primary:
+                                    type: VALUE
+                                    value:
+                                      primary:
+                                        type: COLUMN_REFERENCE
+                                        column_reference: a
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: SET_FUNCTION_SPECIFICATION
+                        set_function_specification:
+                          type: MIN
+                          value:
+                            type: NUMERIC_EXPRESSION
+                            numeric_expression:
+                              left:
+                                left:
+                                  primary:
+                                    type: VALUE
+                                    value:
+                                      primary:
+                                        type: COLUMN_REFERENCE
+                                        column_reference: a
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# MAX set function specifications
+>SELECT MAX(DISTINCT a), MAX(a) FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: SET_FUNCTION_SPECIFICATION
+                        set_function_specification:
+                          type: MAX
+                          distinct: true
+                          value:
+                            type: NUMERIC_EXPRESSION
+                            numeric_expression:
+                              left:
+                                left:
+                                  primary:
+                                    type: VALUE
+                                    value:
+                                      primary:
+                                        type: COLUMN_REFERENCE
+                                        column_reference: a
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: SET_FUNCTION_SPECIFICATION
+                        set_function_specification:
+                          type: MAX
+                          value:
+                            type: NUMERIC_EXPRESSION
+                            numeric_expression:
+                              left:
+                                left:
+                                  primary:
+                                    type: VALUE
+                                    value:
+                                      primary:
+                                        type: COLUMN_REFERENCE
+                                        column_reference: a
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# Nested set function specifications
+>SELECT MAX(COUNT(a)) FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: SET_FUNCTION_SPECIFICATION
+                        set_function_specification:
+                          type: MAX
+                          value:
+                            type: NUMERIC_EXPRESSION
+                            numeric_expression:
+                              left:
+                                left:
+                                  primary:
+                                    type: VALUE
+                                    value:
+                                      primary:
+                                        type: SET_FUNCTION_SPECIFICATION
+                                        set_function_specification:
+                                          type: COUNT
+                                          value:
+                                            type: NUMERIC_EXPRESSION
+                                            numeric_expression:
+                                              left:
+                                                left:
+                                                  primary:
+                                                    type: VALUE
+                                                    value:
+                                                      primary:
+                                                        type: COLUMN_REFERENCE
+                                                        column_reference: a
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# Use of CHAR_LENGTH and CHARACTER_LENGTH numeric functions
+>SELECT CHAR_LENGTH(a), CHARACTER_LENGTH(a) + 1 FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: FUNCTION
+                    function:
+                      type: CHAR_LENGTH
+                      char_length:
+                        operand:
+                          type: STRING_EXPRESSION
+                          string_expression:
+                            factors:
+                              - primary:
+                                  value:
+                                    type: COLUMN_REFERENCE
+                                    column_reference: a
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: FUNCTION
+                    function:
+                      type: CHAR_LENGTH
+                      char_length:
+                        operand:
+                          type: STRING_EXPRESSION
+                          string_expression:
+                            factors:
+                              - primary:
+                                  value:
+                                    type: COLUMN_REFERENCE
+                                    column_reference: a
+              op: ADD
+              right:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: UNSIGNED_VALUE_SPECIFICATION
+                        unsigned_value_specification: literal[1]
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# Use of BIT_LENGTH and OCTET_LENGTH numeric functions
+>SELECT BIT_LENGTH(a), OCTET_LENGTH(a) FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: FUNCTION
+                    function:
+                      type: BIT_LENGTH
+                      bit_length:
+                        operand:
+                          type: STRING_EXPRESSION
+                          string_expression:
+                            factors:
+                              - primary:
+                                  value:
+                                    type: COLUMN_REFERENCE
+                                    column_reference: a
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: FUNCTION
+                    function:
+                      type: OCTET_LENGTH
+                      octet_length:
+                        operand:
+                          type: STRING_EXPRESSION
+                          string_expression:
+                            factors:
+                              - primary:
+                                  value:
+                                    type: COLUMN_REFERENCE
+                                    column_reference: a
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# Use of EXTRACT numeric function
+>SELECT EXTRACT(YEAR FROM a) FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: FUNCTION
+                    function:
+                      type: EXTRACT
+                      extract:
+                        field: YEAR
+                        source:
+                          type: DATETIME_EXPRESSION
+                          datetime_expression:
+                            left:
+                              factor:
+                                time_zone: LOCAL
+                                primary:
+                                  type: VALUE
+                                  value:
+                                    primary:
+                                      type: COLUMN_REFERENCE
+                                      column_reference: a
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# Use of POSITION numeric function
+>SELECT POSITION('123' IN a) FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: FUNCTION
+                    function:
+                      type: POSITION
+                      char_position:
+                        find:
+                          type: STRING_EXPRESSION
+                          string_expression:
+                            factors:
+                              - primary:
+                                  value:
+                                    type: UNSIGNED_VALUE_SPECIFICATION
+                                    unsigned_value_specification: literal['123']
+                        in:
+                          type: STRING_EXPRESSION
+                          string_expression:
+                            factors:
+                              - primary:
+                                  value:
+                                    type: COLUMN_REFERENCE
+                                    column_reference: a
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1

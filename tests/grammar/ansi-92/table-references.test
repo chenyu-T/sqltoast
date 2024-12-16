@@ -1,0 +1,76 @@
+# Normal table with no alias
+>SELECT * FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - asterisk: true
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# Normal table with an alias using AS keyword
+>SELECT * FROM t1 AS t1_alias
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - asterisk: true
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+              alias: t1_alias
+# Normal table with an alias NOT using AS keyword
+>SELECT * FROM t1 t1_alias
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - asterisk: true
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+              alias: t1_alias
+# Derived table with name using AS keyword
+>SELECT * FROM (SELECT a, b FROM t1) AS t
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - asterisk: true
+        referenced_tables:
+          - type: DERIVED_TABLE
+            derived_table:
+              name: t
+              query:
+                selected_columns:
+                  - type: NUMERIC_EXPRESSION
+                    numeric_expression:
+                      left:
+                        left:
+                          primary:
+                            type: VALUE
+                            value:
+                              primary:
+                                type: COLUMN_REFERENCE
+                                column_reference: a
+                  - type: NUMERIC_EXPRESSION
+                    numeric_expression:
+                      left:
+                        left:
+                          primary:
+                            type: VALUE
+                            value:
+                              primary:
+                                type: COLUMN_REFERENCE
+                                column_reference: b
+                referenced_tables:
+                  - type: TABLE
+                    table:
+                      name: t1

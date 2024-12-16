@@ -1,0 +1,70 @@
+# Numeric column definitions
+>CREATE TABLE t1 (
+>    a INT,
+>    b INTEGER,
+>    c SMALLINT,
+>    d DEC,
+>    e DECIMAL,
+>    f NUMERIC,
+>    g FLOAT,
+>    h REAL,
+>    i DOUBLE PRECISION
+>)
+statements:
+  - type: CREATE_TABLE
+    create_table_statement:
+      table_name: t1
+      column_definitions:
+        a: INT
+        b: INT
+        c: SMALLINT
+        d: NUMERIC
+        e: NUMERIC
+        f: NUMERIC
+        g: FLOAT
+        h: FLOAT(24)
+        i: DOUBLE PRECISION
+# Character column definitions
+>CREATE TABLE t1 (
+>    a CHAR,
+>    b CHARACTER,
+>    c CHAR(10),
+>    d CHARACTER(10),
+>    e VARCHAR,
+>    f CHAR VARYING,
+>    g CHARACTER VARYING,
+>    h VARCHAR(10),
+>    i CHAR VARYING(10),
+>    j CHARACTER VARYING(10)
+>)
+statements:
+  - type: CREATE_TABLE
+    create_table_statement:
+      table_name: t1
+      column_definitions:
+        a: CHAR
+        b: CHAR
+        c: CHAR(10)
+        d: CHAR(10)
+        e: VARCHAR
+        f: VARCHAR
+        g: VARCHAR
+        h: VARCHAR(10)
+        i: VARCHAR(10)
+        j: VARCHAR(10)
+# default descriptors of various kinds
+>CREATE TABLE t1 (
+>    a INT DEFAULT 0,
+>    b INT DEFAULT -1,
+>    c VARCHAR DEFAULT CURRENT_USER,
+>    d DATE DEFAULT CURRENT_DATE
+>)
+statements:
+  - type: CREATE_TABLE
+    create_table_statement:
+      table_name: t1
+      column_definitions:
+        a: INT DEFAULT 0
+        b: INT DEFAULT -1
+        c: VARCHAR DEFAULT CURRENT_USER
+        d: DATE DEFAULT CURRENT_DATE

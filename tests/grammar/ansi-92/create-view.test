@@ -1,0 +1,105 @@
+# missing table/view name
+>CREATE VIEW AS SELECT * FROM t1
+Syntax error.
+Expected to find << identifier >> but found keyword[AS]
+CREATE VIEW AS SELECT * FROM t1
+           ^^^^^^^^^^^^^^^^^^^^
+# Missing "AS" keyword results in syntax error
+>CREATE VIEW v1 SELECT * FROM t1
+Syntax error.
+Expected to find AS but found keyword[SELECT]
+CREATE VIEW v1 SELECT * FROM t1
+              ^^^^^^^^^^^^^^^^^
+>CREATE VIEW v1 AS SELECT * FROM t1
+statements:
+  - type: CREATE_VIEW
+    create_view_statement:
+      view_name: v1
+      query:
+        selected_columns:
+          - asterisk: true
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# Use the optional column list
+>CREATE VIEW v1 (a, b) AS SELECT a, b FROM t1
+statements:
+  - type: CREATE_VIEW
+    create_view_statement:
+      view_name: v1
+      columns:
+        - a
+        - b
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: COLUMN_REFERENCE
+                        column_reference: a
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: COLUMN_REFERENCE
+                        column_reference: b
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# The optional WITH LOCAL CHECK OPTION clause
+>CREATE VIEW v1 AS SELECT * FROM t1 WITH LOCAL CHECK OPTION
+statements:
+  - type: CREATE_VIEW
+    create_view_statement:
+      view_name: v1
+      check_option: LOCAL
+      query:
+        selected_columns:
+          - asterisk: true
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# The optional WITH CASCADED CHECK OPTION clause
+>CREATE VIEW v1 AS SELECT * FROM t1 WITH CASCADED CHECK OPTION
+statements:
+  - type: CREATE_VIEW
+    create_view_statement:
+      view_name: v1
+      check_option: CASCADED
+      query:
+        selected_columns:
+          - asterisk: true
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# Missing either LOCAL or CASCADED for the check option clause
+>CREATE VIEW v1 AS SELECT * FROM t1 WITH CHECK OPTION
+Syntax error.
+Expected to find one of (CASCADED|LOCAL) but found keyword[CHECK]
+CREATE VIEW v1 AS SELECT * FROM t1 WITH CHECK OPTION
+                                       ^^^^^^^^^^^^^
+# Missing CHECK symbol for the check option clause
+>CREATE VIEW v1 AS SELECT * FROM t1 WITH LOCAL OPTION
+Syntax error.
+Expected to find CHECK but found keyword[OPTION]
+CREATE VIEW v1 AS SELECT * FROM t1 WITH LOCAL OPTION
+                                             ^^^^^^^
+# Missing CHECK symbol for the check option clause
+>CREATE VIEW v1 AS SELECT * FROM t1 WITH LOCAL CHECK
+Syntax error.
+Expected to find OPTION but found symbol[EOS]
+CREATE VIEW v1 AS SELECT * FROM t1 WITH LOCAL CHECK
+                                                  ^

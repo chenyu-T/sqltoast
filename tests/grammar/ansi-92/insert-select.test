@@ -1,0 +1,104 @@
+# INSERT SELECT with default columns
+>INSERT INTO t1 SELECT a, b FROM t1
+statements:
+  - type: INSERT
+    insert_statement:
+      table_name: t1
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: COLUMN_REFERENCE
+                        column_reference: a
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: COLUMN_REFERENCE
+                        column_reference: b
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# INSERT SELECT with target columns and a search condition
+>INSERT INTO t1 (t1_a, t1_b) SELECT a, b FROM t1 WHERE c < 3
+statements:
+  - type: INSERT
+    insert_statement:
+      table_name: t1
+      columns:
+        - t1_a
+        - t1_b
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: COLUMN_REFERENCE
+                        column_reference: a
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: COLUMN_REFERENCE
+                        column_reference: b
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+        where:
+          terms:
+            - factor:
+                predicate:
+                  type: COMPARISON
+                  comparison_predicate:
+                    op: LESS_THAN
+                    left:
+                      type: ELEMENT
+                      element:
+                        type: VALUE_EXPRESSION
+                        value_expression:
+                          type: NUMERIC_EXPRESSION
+                          numeric_expression:
+                            left:
+                              left:
+                                primary:
+                                  type: VALUE
+                                  value:
+                                    primary:
+                                      type: COLUMN_REFERENCE
+                                      column_reference: c
+                    right:
+                      type: ELEMENT
+                      element:
+                        type: VALUE_EXPRESSION
+                        value_expression:
+                          type: NUMERIC_EXPRESSION
+                          numeric_expression:
+                            left:
+                              left:
+                                primary:
+                                  type: VALUE
+                                  value:
+                                    primary:
+                                      type: UNSIGNED_VALUE_SPECIFICATION
+                                      unsigned_value_specification: literal[3]

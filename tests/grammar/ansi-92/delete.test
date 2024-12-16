@@ -1,0 +1,49 @@
+# DELETE with no WHERE condition
+>DELETE FROM t1
+statements:
+  - type: DELETE
+    delete_statement:
+      table_name: t1
+# DELETE with simple WHERE condition with equality comparison
+>DELETE FROM t1 WHERE a = 10
+statements:
+  - type: DELETE
+    delete_statement:
+      table_name: t1
+      where:
+        terms:
+          - factor:
+              predicate:
+                type: COMPARISON
+                comparison_predicate:
+                  op: EQUAL
+                  left:
+                    type: ELEMENT
+                    element:
+                      type: VALUE_EXPRESSION
+                      value_expression:
+                        type: NUMERIC_EXPRESSION
+                        numeric_expression:
+                          left:
+                            left:
+                              primary:
+                                type: VALUE
+                                value:
+                                  primary:
+                                    type: COLUMN_REFERENCE
+                                    column_reference: a
+                  right:
+                    type: ELEMENT
+                    element:
+                      type: VALUE_EXPRESSION
+                      value_expression:
+                        type: NUMERIC_EXPRESSION
+                        numeric_expression:
+                          left:
+                            left:
+                              primary:
+                                type: VALUE
+                                value:
+                                  primary:
+                                    type: UNSIGNED_VALUE_SPECIFICATION
+                                    unsigned_value_specification: literal[10]

@@ -1,0 +1,69 @@
+# Simple identifier all alphanumeric
+>SELECT * FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - asterisk: true
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
+# Identifier includes an underscore
+>SELECT * FROM t1_backup
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - asterisk: true
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1_backup
+# Identifier includes a period
+>SELECT * FROM s1.t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - asterisk: true
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: s1.t1
+# Identifier includes multiple periods and underscore
+>SELECT * FROM c1.s1.t1_backup
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - asterisk: true
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: c1.s1.t1_backup
+# Identifier includes a prefix and a star projection
+>SELECT t1.* FROM t1
+statements:
+  - type: SELECT
+    select_statement:
+      query:
+        selected_columns:
+          - type: NUMERIC_EXPRESSION
+            numeric_expression:
+              left:
+                left:
+                  primary:
+                    type: VALUE
+                    value:
+                      primary:
+                        type: COLUMN_REFERENCE
+                        column_reference: t1.*
+        referenced_tables:
+          - type: TABLE
+            table:
+              name: t1
